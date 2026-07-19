@@ -14,5 +14,5 @@ das browser-basierte Planungstool für Hüft- und Knie-Endoprothetik.
   Wikimedia Commons) — Nachweis auf der Seite; keine Patientendaten,
   keine Hersteller-Schablonen.
 
-**Vor dem Verbinden der Domain:** Platzhalter in `impressum.html` und
-`datenschutz.html` ausfüllen ([...]-Markierungen).
+
+
