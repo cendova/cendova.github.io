@@ -65,6 +65,13 @@
     #menue-panel a.cta{display:inline-flex;align-items:center;justify-content:center;background:#0284c7;color:#fff;padding:12px 18px;min-height:46px;border-radius:9px;font-size:14.5px;font-weight:600;margin-top:10px;border-bottom:none}
     #lightbox{display:none}
     #lightbox.offen{display:flex;flex-direction:column}
+    #demo-dialog{display:none;position:fixed;inset:0;z-index:1100;background:rgba(5,5,5,.85);align-items:center;justify-content:center;padding:20px}
+    #demo-dialog.offen{display:flex}
+    .demo-karte{background:#121212;border:1px solid #232323;border-radius:14px;padding:22px;max-width:440px;width:100%;box-shadow:0 24px 60px rgba(2,132,199,.12)}
+    .demo-opt{display:block;border:1px solid #262626;background:#171717;border-radius:10px;padding:13px 15px;margin-top:10px;text-decoration:none;transition:border-color .15s ease}
+    .demo-opt:hover{border-color:#0ea5e9}
+    .demo-opt b{display:block;font-size:14px;font-weight:650;color:#e8f4fb}
+    .demo-opt span{display:block;font-size:12px;color:#8f8f8f;margin-top:3px;line-height:1.5}
     @media (max-width:840px){
       #nav-links{display:none !important}
       #burger{display:flex}
@@ -88,7 +95,7 @@
           <a class="anker" href="#installation">Installation</a>
           <span style="flex:1"></span>
           <a class="anker" href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px">Open Source<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
-          <a class="nav-cta" href="/cendova-plan/">Demo testen</a>
+          <a class="nav-cta js-demo" href="/cendova-plan/">Demo testen</a>
         </div>
         <span id="burger-spacer" style="display:none;flex:1"></span>
         <button id="burger" aria-label="Menü öffnen oder schließen" aria-expanded="false">
@@ -103,7 +110,7 @@
         <a href="#einblicke">Einblicke</a>
         <a href="#installation">Installation</a>
         <a href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener" style="border-bottom:none">Open Source ↗</a>
-        <a class="cta" href="/cendova-plan/">Demo im Browser testen</a>
+        <a class="cta js-demo" href="/cendova-plan/">Demo im Browser testen</a>
       </div>
     </div>
   </header>
@@ -119,7 +126,7 @@
         <h1 data-fade data-verz="60" style="margin:0 0 14px;font-size:clamp(30px,4.2vw,42px);line-height:1.1;font-weight:750;letter-spacing:-.015em;text-wrap:balance;color:#e8f4fb">Digitale OP&#8209;Planung für Hüfte und Knie — <em style="font-style:normal;color:#38bdf8">komplett lokal.</em></h1>
         <p data-fade data-verz="140" style="margin:0 0 22px;font-size:16px;line-height:1.6;color:#a3a3a3;max-width:44ch;text-wrap:pretty">Vermessen, nach CPAK klassifizieren, templatieren, drucken — direkt im Browser, ohne Cloud und ohne Konto.</p>
         <div data-fade data-verz="220" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-          <a class="btn-p" href="/cendova-plan/">Demo im Browser testen</a>
+          <a class="btn-p js-demo" href="/cendova-plan/">Demo im Browser testen</a>
           <a class="btn-s" href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener">Code auf GitHub</a>
         </div>
         <p data-fade data-verz="280" style="margin:12px 0 0"><a href="#installation" style="font-size:13px;font-weight:600;text-decoration:none">Oder direkt installieren ↓</a></p>
@@ -133,8 +140,12 @@
             <div class="label">kostenfrei — kein Abo, keine Lizenz</div>
           </div>
           <div class="stat">
-            <div class="wert">Apache&#8209;2.0</div>
-            <div class="label">Open Source — quelloffen, nachvollziehbar</div>
+            <div class="wert">Open Source</div>
+            <div class="label">quelloffen — jede Zeile Code frei einsehbar</div>
+          </div>
+          <div class="stat">
+            <div class="wert">Anpassbar</div>
+            <div class="label">Code laden und für die eigenen Bedürfnisse weiterentwickeln</div>
           </div>
         </div>
       </div>
@@ -181,11 +192,16 @@
       </div>
       <h2 class="h2">Warum CendovaPlan?</h2>
       <p class="sub">Die Software ist frei — die Schablonen gibt es beim Implantat&#8209;Hersteller.</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,225px),1fr));gap:12px">
         <div class="karte karte-hover" data-fade>
+          <div class="icon-dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13l-7 7-9-9V4h7l9 9z"></path><circle cx="7.5" cy="7.5" r="1.3" fill="currentColor" stroke="none"></circle></svg></div>
+          <h3 style="margin:10px 0 6px;font-size:14px;font-weight:650;color:#e8f4fb">Kostenfrei</h3>
+          <p style="font-size:12.5px;line-height:1.55;color:#8f8f8f">Kein Abo, keine Lizenzgebühr, kein Konto — dauerhaft frei nutzbar.</p>
+        </div>
+        <div class="karte karte-hover" data-fade data-verz="60">
           <div class="icon-dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"></path></svg></div>
-          <h3 style="margin:10px 0 6px;font-size:14px;font-weight:650;color:#e8f4fb">Kostenfrei &amp; Open Source</h3>
-          <p style="font-size:12.5px;line-height:1.55;color:#8f8f8f">Kein Abo, keine Lizenzgebühr, kein Konto — der komplette Quellcode ist offen (Apache&#8209;2.0).</p>
+          <h3 style="margin:10px 0 6px;font-size:14px;font-weight:650;color:#e8f4fb">Open Source &amp; anpassbar</h3>
+          <p style="font-size:12.5px;line-height:1.55;color:#8f8f8f">Der komplette Quellcode ist offen: herunterladen, prüfen — und für die eigenen Bedürfnisse weiterentwickeln, vom Messworkflow bis zur eigenen Schablonen&#8209;Bibliothek.</p>
         </div>
         <div class="karte karte-hover" data-fade data-verz="90">
           <div class="icon-dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="12" height="12" rx="2"></rect><path d="M9 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2"></path></svg></div>
@@ -354,9 +370,7 @@
   <section id="entwickler" style="padding-top:clamp(40px,5.5vw,56px)">
     <div class="wrap">
       <div data-fade style="border-top:1px solid #1c1c1c;padding-top:clamp(24px,3.5vw,36px);display:flex;flex-wrap:wrap;gap:24px;align-items:center">
-        <div aria-hidden="true" style="width:104px;height:104px;flex:none;border-radius:50%;background:#0b2536;border:1px solid #1f3a52;display:flex;align-items:center;justify-content:center">
-          <span style="font-size:30px;font-weight:700;color:#38bdf8;letter-spacing:.02em">PM</span>
-        </div>
+        <img src="assets/entwickler-portrait.jpg" alt="Porträt von Priv.-Doz. Dr. med. Philipp A. Michel" width="104" height="104" style="width:104px;height:104px;flex:none;border-radius:50%;object-fit:cover;border:1px solid #1f3a52" />
         <div style="flex:1;min-width:280px">
           <p style="margin:0 0 6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#737373">Entwickelt von</p>
           <h2 style="margin:0 0 6px;font-size:17px;font-weight:650;color:#e8f4fb">Priv.&#8209;Doz. Dr. med. Philipp A. Michel</h2>
@@ -387,6 +401,31 @@
       <span style="font-weight:700;font-size:14px"><span style="color:#0ea5e9">C</span><span style="color:#8f8f8f">endova</span></span>
     </div>
   </footer>
+
+  <div id="demo-dialog" role="dialog" aria-modal="true" aria-label="Demo starten" hidden>
+    <div class="demo-karte">
+      <div style="display:flex;align-items:center;gap:9px">
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="#38bdf8" stroke-width="1.6" aria-hidden="true"><path d="M9 0v5M9 13v5M0 9h5M13 9h5"></path><circle cx="9" cy="9" r="1.4" fill="#38bdf8" stroke="none"></circle></svg>
+        <span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#737373">Demo starten</span>
+        <span style="flex:1"></span>
+        <button class="lb-btn" id="demo-schliessen" aria-label="Schließen" style="font-size:16px">✕</button>
+      </div>
+      <p style="margin:12px 0 2px;font-size:15px;font-weight:650;color:#e8f4fb">Womit möchten Sie beginnen?</p>
+      <a class="demo-opt" href="/cendova-plan/?beispiel=knie">
+        <b>Beispielbild Knie — Ganzbein a.p.</b>
+        <span>Direkt losplanen: Vollvermessung, CPAK und mehr am geladenen Beispielbild.</span>
+      </a>
+      <a class="demo-opt" href="/cendova-plan/?beispiel=huefte">
+        <b>Beispielbild Hüfte — Beckenübersicht a.p.</b>
+        <span>Direkt losplanen: Beinlängen, Winkel und Osteotomie am geladenen Beispielbild.</span>
+      </a>
+      <a class="demo-opt" href="/cendova-plan/">
+        <b>Eigenes DICOM laden</b>
+        <span>Leerer Viewport — eigene Datei, Ordner oder ZIP einfach hineinziehen.</span>
+      </a>
+      <p style="margin:12px 0 0;font-size:10.5px;line-height:1.5;color:#525252">Beispielbilder: anonymisierte, frei lizenzierte Lehraufnahmen — keine Patientendaten. Auch eigene DICOMs verlassen den Rechner nie.</p>
+    </div>
+  </div>
 
   <div id="lightbox" role="dialog" aria-modal="true" aria-label="Bildansicht" hidden style="position:fixed;inset:0;z-index:1000;background:rgba(5,5,5,.94)">
     <div style="display:flex;align-items:center;gap:8px;padding:12px 16px">
@@ -492,6 +531,27 @@
       accPanel.hidden = offen;
       accTrigger.setAttribute('aria-expanded', offen ? 'false' : 'true');
       accPlus.style.transform = offen ? 'rotate(0deg)' : 'rotate(45deg)';
+    });
+
+    /* ---------- Demo-Auswahl (Beispielbild oder eigenes DICOM) ---------- */
+    var demoDialog = document.getElementById('demo-dialog');
+    function demoOeffnen() {
+      schliesseMenue();
+      demoDialog.hidden = false; demoDialog.classList.add('offen');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function () { demoDialog.querySelector('.demo-opt').focus(); }, 40);
+    }
+    function demoSchliessen() {
+      demoDialog.hidden = true; demoDialog.classList.remove('offen');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.js-demo').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); demoOeffnen(); });
+    });
+    document.getElementById('demo-schliessen').addEventListener('click', demoSchliessen);
+    demoDialog.addEventListener('click', function (e) { if (e.target === demoDialog) demoSchliessen(); });
+    addEventListener('keydown', function (e) {
+      if (!demoDialog.hidden && e.key === 'Escape') demoSchliessen();
     });
 
     /* ---------- Lightbox (Zoom, Pan, Tastatur) ---------- */
