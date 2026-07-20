@@ -6,7 +6,7 @@
   <title>Cendova — Digitale OP-Planung für Hüfte und Knie, komplett lokal</title>
   <meta name="description" content="CendovaPlan vermisst Ganzbein- und Beckenaufnahmen, klassifiziert nach CPAK und plant Hüft- und Knie-Endoprothetik — direkt im Browser, ohne Cloud, ohne Konto. Open Source (Apache-2.0), kein Medizinprodukt." />
   <meta property="og:title" content="Cendova — Digitale OP-Planung für Hüfte und Knie" />
-  <meta property="og:description" content="Vermessen, CPAK-klassifizieren, templatieren und den OP-Aushang drucken — komplett lokal im Browser. Open Source, kein Abo, kein Konto." />
+  <meta property="og:description" content="Vermessen, nach CPAK klassifizieren, templatieren, drucken — direkt im Browser, ohne Cloud und ohne Konto. Open Source, kein Abo, kein Konto." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://cendova.de/" />
   <meta property="og:image" content="https://cendova.de/assets/screenshots/knie-vollvermessung.png" />
@@ -14,239 +14,579 @@
   <link rel="icon" type="image/svg+xml" href="assets/brand/cendova-suite.svg" />
   <link rel="apple-touch-icon" href="assets/brand/cendova-suite-256.png" />
   <style>
-    @font-face{font-family:'InterVariable';src:url('assets/fonts/InterVariable.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
-    html,body{margin:0;padding:0;background:#0a0a0a}
-    .lp{font-family:'InterVariable',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;background:#0a0a0a;color:#e5e5e5;min-height:100%;line-height:1.5}
-    .lp *{box-sizing:border-box}
-    .lp .wrap{max-width:1040px;margin:0 auto;padding:0 28px}
-    .lp nav{display:flex;align-items:center;gap:26px;padding:18px 0;border-bottom:1px solid #1c1c1c}
-    .lp nav .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;color:#e8f4fb;letter-spacing:-.015em;text-decoration:none}
-    .lp nav .brand img{width:24px;height:24px;display:block}
-    .lp .marke-c{color:#0ea5e9}.lp .marke-endo{color:#e8f4fb}.lp .marke-va{color:#ffc400}
-    .lp nav a.anker{color:#a3a3a3;text-decoration:none;font-size:13px}
-    .lp nav a.anker:hover{color:#e5e5e5}
-    .lp nav .cta{margin-left:auto;background:#0284c7;color:#fff;padding:8px 16px;border-radius:8px;font-weight:600;font-size:13px;text-decoration:none;white-space:nowrap}
-    .lp nav .cta:hover{background:#0ea5e9}
-    .lp .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;padding:64px 0 52px}
-    .lp .hero h1{font-size:40px;line-height:1.12;margin:0 0 16px;font-weight:750;letter-spacing:-.015em}
-    .lp .hero h1 em{font-style:normal;color:#38bdf8}
-    .lp .hero p{color:#a3a3a3;font-size:16px;line-height:1.6;margin:0 0 24px;max-width:46ch}
-    .lp .btns{display:flex;gap:12px;flex-wrap:wrap}
-    .lp .btn-p{background:#0284c7;color:#fff;padding:12px 22px;border-radius:9px;font-weight:650;text-decoration:none;font-size:15px}
-    .lp .btn-p:hover{background:#0ea5e9}
-    .lp .btn-s{border:1px solid #404040;color:#d4d4d4;padding:12px 22px;border-radius:9px;font-weight:600;text-decoration:none;font-size:15px}
-    .lp .shot{border:1px solid #262626;border-radius:14px;background:#050505;padding:10px;box-shadow:0 24px 60px rgba(2,132,199,.12);margin:0}
-    .lp .shot .bar{display:flex;gap:5px;padding:2px 4px 8px}
-    .lp .shot .bar i{width:9px;height:9px;border-radius:50%;background:#262626}
-    .lp .slot{display:block;width:100%;border-radius:8px;overflow:hidden;background:#000}
-    .lp .slot img{display:block;width:100%;height:auto}
-    .lp figcaption{color:#737373;font-size:12.5px;line-height:1.5;padding:10px 4px 2px}
-    .lp section h2{font-size:26px;font-weight:700;letter-spacing:-.01em;margin:0 0 6px}
-    .lp section .sub{color:#a3a3a3;font-size:14.5px;margin:0 0 24px;max-width:62ch}
-    .lp .usps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:8px 0 56px}
-    .lp .usps.drei{grid-template-columns:repeat(3,1fr)}
-    .lp .usp{border:1px solid #232323;border-radius:12px;background:#121212;padding:18px}
-    .lp .usp b{display:block;font-size:14px;margin:10px 0 6px;color:#e8f4fb}
-    .lp .usp span{font-size:12.5px;color:#8f8f8f;line-height:1.55;display:block}
-    .lp .usp .dot{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:#0b2536;color:#38bdf8;font-size:16px}
-    .lp .schritte{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:8px 0 56px}
-    .lp .schritt{border:1px solid #232323;border-radius:12px;background:#121212;padding:18px}
-    .lp .schritt .num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#0b2536;color:#38bdf8;font-weight:700;font-size:14px}
-    .lp .schritt b{display:block;font-size:14px;margin:10px 0 6px;color:#e8f4fb}
-    .lp .schritt span{font-size:12.5px;color:#8f8f8f;line-height:1.55;display:block}
-    .lp .schritt a{color:#38bdf8;text-decoration:none}
-    .lp .galerie{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:16px;align-items:start;padding-bottom:8px}
-    .lp .galerie .hoch{grid-column:2;grid-row:1 / span 2}
-    .lp .nachweis{color:#525252;font-size:11.5px;padding:0 0 24px}
-    .lp .nachweis a{color:#737373}
-    .lp .teaser{border:1px solid #232323;border-radius:12px;background:#121212;padding:18px;display:flex;align-items:center;gap:14px;margin-bottom:56px}
-    .lp .teaser .pill{background:#0b2536;color:#38bdf8;border:1px solid #1f3a52;padding:3px 10px;border-radius:99px;font-weight:600;font-size:12.5px;white-space:nowrap}
-    .lp .teaser span{font-size:13px;color:#8f8f8f;line-height:1.55}
-    .lp .privat{padding:0 0 56px}
-    .lp .privat .karte{border:1px solid #1f3a52;border-radius:12px;background:#0b1c2b;padding:24px}
-    .lp .privat .karte p{color:#a9c3d6;font-size:14px;line-height:1.65;margin:0 0 10px;max-width:78ch}
-    .lp .privat .karte a{color:#38bdf8;text-decoration:none;font-size:13.5px;font-weight:600}
-    .lp .band{border-top:1px solid #1c1c1c;border-bottom:1px solid #1c1c1c;background:#0d0d0d;padding:22px 0}
-    .lp .band .wrap{display:flex;gap:14px;align-items:flex-start;font-size:12.5px;color:#a3a3a3}
-    .lp .band .tag{background:#3a2b00;color:#fbbf24;border:1px solid #6b5300;padding:3px 10px;border-radius:99px;font-weight:600;white-space:nowrap}
-    .lp .band p{margin:0;line-height:1.6}
-    .lp .band a{color:#d4d4d4}
-    .lp footer{padding:28px 0 40px;color:#666;font-size:12px}
-    .lp footer .wrap{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
-    .lp footer a{color:#8f8f8f;text-decoration:none}
-    .lp footer .marke{margin-left:auto;font-weight:700}
-    @media (max-width:900px){
-      .lp .hero{grid-template-columns:1fr;gap:32px;padding:44px 0 40px}
-      .lp .usps{grid-template-columns:repeat(2,1fr)}
-      .lp .usps.drei{grid-template-columns:1fr}
-      .lp .schritte{grid-template-columns:repeat(2,1fr)}
-      .lp .galerie{grid-template-columns:1fr}
-      .lp .galerie .hoch{grid-column:auto;grid-row:auto;max-width:300px;margin:0 auto}
+    @font-face{font-family:'Inter';src:url('assets/fonts/InterVariable.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:#0a0a0a;color:#e5e5e5;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+    *,*::before,*::after{box-sizing:border-box}
+    a{color:#38bdf8}a:hover{color:#7dd3fc}
+    a:focus-visible,button:focus-visible{outline:2px solid #0ea5e9;outline-offset:2px}
+    h1,h2,h3,p,figure{margin:0}
+    button{font-family:inherit}
+    .wrap{max-width:1040px;margin:0 auto;padding:0 clamp(20px,3.5vw,28px)}
+    .sektion{scroll-margin-top:76px;padding-top:clamp(40px,5.5vw,64px)}
+    .kicker{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+    .kicker span.txt{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#737373}
+    .kicker .regel{height:1px;background:#262626;flex:1;transform-origin:left}
+    .h2{margin:0 0 6px;font-size:26px;font-weight:700;letter-spacing:-.01em;color:#e8f4fb}
+    .sub{margin:0 0 22px;font-size:14.5px;color:#a3a3a3;max-width:62ch}
+    .anker{color:#a3a3a3;text-decoration:none;font-size:13px}
+    .anker:hover{color:#e5e5e5}
+    .btn-p{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#0284c7;color:#fff;padding:12px 22px;min-height:46px;border-radius:9px;font-size:15px;font-weight:650;text-decoration:none;transition:background .2s ease}
+    .btn-p:hover{background:#0ea5e9;color:#fff}
+    .btn-p:active{transform:translateY(1px)}
+    .btn-s{display:inline-flex;align-items:center;justify-content:center;background:transparent;color:#d4d4d4;padding:12px 22px;min-height:46px;border-radius:9px;font-size:15px;font-weight:600;text-decoration:none;border:1px solid #404040;transition:border-color .2s ease,color .2s ease}
+    .btn-s:hover{border-color:#737373;color:#e5e5e5}
+    .nav-cta{display:inline-flex;align-items:center;background:#0284c7;color:#fff;padding:8px 16px;min-height:36px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .2s ease}
+    .nav-cta:hover{background:#0ea5e9;color:#fff}
+    .karte{background:#121212;border:1px solid #232323;border-radius:12px;padding:18px}
+    .karte-hover{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+    .karte-hover:hover{transform:translateY(-3px);border-color:#0e4a6b;box-shadow:0 18px 44px rgba(2,132,199,.14)}
+    .shot-btn{display:block;width:100%;text-align:left;background:#050505;border:1px solid #262626;border-radius:14px;cursor:zoom-in}
+    .galerie-btn{padding:8px;transition:border-color .2s ease,transform .2s ease}
+    .galerie-btn:hover{border-color:#0e4a6b;transform:translateY(-3px)}
+    .icon-dot{width:34px;height:34px;border-radius:9px;background:#0b2536;color:#38bdf8;display:flex;align-items:center;justify-content:center}
+    .schritt-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#0b2536;color:#38bdf8;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums}
+    .lb-btn{width:44px;height:44px;border-radius:8px;border:1px solid #404040;background:#171717;color:#e5e5e5;font-size:18px;cursor:pointer;transition:border-color .15s ease}
+    .lb-btn:hover{border-color:#0ea5e9}
+    .lb-rund{border-radius:50%;font-size:20px;flex:none}
+    .ecke{position:absolute;opacity:.7}
+    .stat{border:1px solid #232323;background:#121212;border-radius:12px;padding:14px 16px}
+    .stat .wert{font-size:24px;font-weight:700;color:#38bdf8;line-height:1.1;font-variant-numeric:tabular-nums}
+    .stat .label{font-size:12px;color:#8f8f8f;margin-top:5px;line-height:1.45}
+    .trust-kachel{border:1px solid #1f3a52;background:rgba(14,165,233,.05);border-radius:10px;padding:14px}
+    .trust-kachel p{margin:8px 0 0;font-size:13px;font-weight:600;color:#e8f4fb}
+    .fuss-link{color:#8f8f8f;text-decoration:none}
+    .fuss-link:hover{color:#e5e5e5}
+    .dev-link{color:#737373;text-decoration:none}
+    .dev-link:hover{color:#a3a3a3}
+    #burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;background:transparent;border:1px solid #404040;border-radius:8px;cursor:pointer;color:#e5e5e5}
+    #menue-panel{display:none;border-top:1px solid #1c1c1c;background:#0a0a0a;padding:8px 0 16px}
+    #menue-panel a{padding:13px 4px;min-height:44px;color:#e5e5e5;text-decoration:none;font-size:15px;border-bottom:1px solid #1c1c1c;display:block}
+    #menue-panel a.cta{display:inline-flex;align-items:center;justify-content:center;background:#0284c7;color:#fff;padding:12px 18px;min-height:46px;border-radius:9px;font-size:14.5px;font-weight:600;margin-top:10px;border-bottom:none}
+    #lightbox{display:none}
+    #lightbox.offen{display:flex;flex-direction:column}
+    @media (max-width:840px){
+      #nav-links{display:none !important}
+      #burger{display:flex}
     }
-    @media (max-width:560px){
-      .lp .wrap{padding:0 20px}
-      .lp nav a.anker{display:none}
-      .lp .hero h1{font-size:30px}
-      .lp .usps,.lp .schritte{grid-template-columns:1fr}
-      .lp .band .wrap{flex-direction:column}
-      .lp .teaser{flex-direction:column;align-items:flex-start}
-    }
+    @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
   </style>
 </head>
 <body>
-<div class="lp">
-  <header class="wrap">
-    <nav>
-      <a class="brand" href="/">
-        <img src="assets/brand/cendova-plan.svg" alt="Cendova-Logo" />
-        <span><span class="marke-c">C</span><span class="marke-endo">endo</span><span class="marke-va">va</span></span>
-      </a>
-      <a class="anker" href="#warum">Warum</a>
-      <a class="anker" href="#funktionen">Funktionen</a>
-      <a class="anker" href="#einblicke">Einblicke</a>
-      <a class="anker" href="#installation">Installation</a>
-      <a class="anker" href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener">Open Source</a>
-      <a class="cta" href="/cendova-plan/">Demo testen</a>
-    </nav>
-  </header>
 
-  <section class="hero wrap">
-    <div>
-      <h1>Digitale OP-Planung für Hüfte&nbsp;und&nbsp;Knie — <em>komplett lokal.</em></h1>
-      <p>CendovaPlan vermisst Ganzbein- und Beckenaufnahmen, klassifiziert nach
-      CPAK, platziert Röntgen-Schablonen und druckt den OP-Aushang — direkt im
-      Browser, ohne Cloud, ohne Konto. Kostenfrei, quelloffen, ohne Abo —
-      Patientenbilder verlassen den Rechner nie.</p>
-      <div class="btns">
-        <a class="btn-p" href="/cendova-plan/">Demo im Browser testen</a>
-        <a class="btn-s" href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener">Code auf GitHub</a>
+  <header style="position:sticky;top:0;z-index:500;background:rgba(10,10,10,.93);border-bottom:1px solid #1c1c1c;backdrop-filter:blur(6px)">
+    <div class="wrap">
+      <nav aria-label="Hauptnavigation" style="display:flex;align-items:center;gap:24px;min-height:58px">
+        <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+          <img src="assets/brand/cendova-plan.svg" alt="Cendova-Logo" width="24" height="24" style="display:block" />
+          <span style="font-weight:700;font-size:18px;letter-spacing:-.015em"><span style="color:#0ea5e9">C</span><span style="color:#e8f4fb">endo</span><span style="color:#ffc400">va</span></span>
+        </a>
+        <div id="nav-links" style="display:flex;align-items:center;gap:22px;flex:1">
+          <a class="anker" href="#warum">Warum</a>
+          <a class="anker" href="#funktionen">Funktionen</a>
+          <a class="anker" href="#einblicke">Einblicke</a>
+          <a class="anker" href="#installation">Installation</a>
+          <span style="flex:1"></span>
+          <a class="anker" href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px">Open Source<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+          <a class="nav-cta" href="/cendova-plan/">Demo testen</a>
+        </div>
+        <span id="burger-spacer" style="display:none;flex:1"></span>
+        <button id="burger" aria-label="Menü öffnen oder schließen" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+        </button>
+      </nav>
+    </div>
+    <div id="menue-panel">
+      <div class="wrap" style="display:flex;flex-direction:column">
+        <a href="#warum">Warum</a>
+        <a href="#funktionen">Funktionen</a>
+        <a href="#einblicke">Einblicke</a>
+        <a href="#installation">Installation</a>
+        <a href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener" style="border-bottom:none">Open Source ↗</a>
+        <a class="cta" href="/cendova-plan/">Demo im Browser testen</a>
       </div>
     </div>
-    <figure class="shot">
-      <div class="bar"><i></i><i></i><i></i></div>
-      <span class="slot" style="aspect-ratio: 1952 / 1304">
-        <img src="assets/screenshots/knie-vollvermessung.png" alt="CendovaPlan: Knie-Vollvermessung mit CPAK-Klassifikation an einer Ganzbeinaufnahme" loading="eager" />
-      </span>
-    </figure>
-  </section>
+  </header>
 
-  <section class="wrap" id="warum">
-    <h2>Warum CendovaPlan?</h2>
-    <p class="sub">Digitale Endoprothetik-Planung kostet üblicherweise laufende Software-Lizenzen.
-    CendovaPlan dreht das Modell um: die Software ist frei — und die Schablonen gibt es beim
-    Implantat-Hersteller.</p>
-    <div class="usps drei">
-      <div class="usp"><div class="dot">◇</div><b>Kostenfrei &amp; Open Source</b><span>Kein Abo, keine Lizenzgebühren, kein Konto. Der komplette Quellcode ist offen (Apache-2.0) und nachvollziehbar — teure Lizenzen kommerzieller Planungssoftware können entfallen.</span></div>
-      <div class="usp"><div class="dot">▦</div><b>Schablonen direkt vom Hersteller</b><span>Offizielle Röntgen-Schablonen erhalten orthopädisch tätige Ärztinnen und Ärzte in der Regel kostenlos von ihrem Implantat-Hersteller. Einmal als lokales Paket importiert, stehen sie in der Planung bereit — CendovaPlan selbst liefert bewusst keine Hersteller-Schablonen aus.</span></div>
-      <div class="usp"><div class="dot">▶</div><b>Sofort einsatzbereit</b><span>Installieren, DICOM öffnen, planen: das Tool funktioniert direkt — komplett lokal im Browser, ohne Server-Anbindung und ohne Freischaltung. Oder gleich die Demo im Browser ausprobieren.</span></div>
-    </div>
-  </section>
+  <section style="position:relative;overflow:hidden">
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.014) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.014) 1px,transparent 1px);background-size:96px 96px,96px 96px,12px 12px,12px 12px;-webkit-mask-image:linear-gradient(#000 55%,transparent 100%);mask-image:linear-gradient(#000 55%,transparent 100%)"></div>
+    <div style="position:relative;max-width:1040px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,3.5vw,28px) clamp(40px,5vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(28px,4.5vw,48px);align-items:center">
+      <div>
+        <div data-fade style="display:flex;align-items:center;gap:9px;margin-bottom:16px">
+          <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="#38bdf8" stroke-width="1.6" aria-hidden="true"><path d="M9 0v5M9 13v5M0 9h5M13 9h5"></path><circle cx="9" cy="9" r="1.4" fill="#38bdf8" stroke="none"></circle></svg>
+          <span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#737373">CendovaPlan — Planungsinstrument für die Endoprothetik</span>
+        </div>
+        <h1 data-fade data-verz="60" style="margin:0 0 14px;font-size:clamp(30px,4.2vw,42px);line-height:1.1;font-weight:750;letter-spacing:-.015em;text-wrap:balance;color:#e8f4fb">Digitale OP&#8209;Planung für Hüfte und Knie — <em style="font-style:normal;color:#38bdf8">komplett lokal.</em></h1>
+        <p data-fade data-verz="140" style="margin:0 0 22px;font-size:16px;line-height:1.6;color:#a3a3a3;max-width:44ch;text-wrap:pretty">Vermessen, nach CPAK klassifizieren, templatieren, drucken — direkt im Browser, ohne Cloud und ohne Konto.</p>
+        <div data-fade data-verz="220" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <a class="btn-p" href="/cendova-plan/">Demo im Browser testen</a>
+          <a class="btn-s" href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener">Code auf GitHub</a>
+        </div>
+        <p data-fade data-verz="280" style="margin:12px 0 0"><a href="#installation" style="font-size:13px;font-weight:600;text-decoration:none">Oder direkt installieren ↓</a></p>
+        <div data-fade data-verz="340" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:30px;max-width:560px">
+          <div class="stat">
+            <div class="wert"><span data-zaehl="100">100</span>&nbsp;%</div>
+            <div class="label">lokal — kein Upload, kein Konto</div>
+          </div>
+          <div class="stat">
+            <div class="wert"><span data-zaehl="0">0</span>&nbsp;€</div>
+            <div class="label">kostenfrei — kein Abo, keine Lizenz</div>
+          </div>
+          <div class="stat">
+            <div class="wert">Apache&#8209;2.0</div>
+            <div class="label">Open Source — quelloffen, nachvollziehbar</div>
+          </div>
+        </div>
+      </div>
 
-  <section class="wrap" id="installation">
-    <h2>So funktioniert es</h2>
-    <p class="sub">Von null zur fertigen Planung in vier Schritten.</p>
-    <div class="btns" style="margin:0 0 12px">
-      <a class="btn-p" href="https://github.com/cendova/cendova-plan/releases/latest/download/CendovaPlan-Installer-Windows.zip">⬇&nbsp;&nbsp;Installer für Windows</a>
-      <a class="btn-p" href="https://github.com/cendova/cendova-plan/releases/latest/download/CendovaPlan-Installer-macOS.zip">⬇&nbsp;&nbsp;Installer für macOS</a>
-      <a class="btn-s" href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener">Code auf GitHub</a>
-    </div>
-    <p class="sub" style="font-size:12.5px;max-width:78ch">ZIP entpacken und den Installer
-    starten (Windows: Doppelklick auf „Installieren.cmd" — den SmartScreen-Hinweis mit
-    „Trotzdem ausführen" bestätigen; macOS: Rechtsklick auf „install-mac.command" →
-    „Öffnen"). Der Installer richtet Git und Node.js ein, lädt CendovaPlan und legt eine
-    Desktop-Verknüpfung an, die beim Start automatisch aktualisiert — Details in der
-    <a href="https://github.com/cendova/cendova-plan/blob/main/docs/klinik-installation.md" target="_blank" rel="noopener" style="color:#38bdf8;text-decoration:none">Installations-Anleitung</a>.</p>
-    <div class="schritte">
-      <div class="schritt"><div class="num">1</div><b>Installieren</b><span>Installer oben herunterladen und starten — Voraussetzungen wie Node.js und Git richtet er selbst ein. <a href="https://github.com/cendova/cendova-plan/blob/main/docs/klinik-installation.md" target="_blank" rel="noopener">Zur Anleitung&nbsp;→</a></span></div>
-      <div class="schritt"><div class="num">2</div><b>Schablonen importieren</b><span>Schablonen-Paket beim Implantat-Hersteller beziehen und einmalig über das Paket-Symbol in der Kopfzeile importieren — es bleibt lokal auf dem Rechner.</span></div>
-      <div class="schritt"><div class="num">3</div><b>Kalibrieren &amp; vermessen</b><span>DICOM-Aufnahme öffnen, über Kalibrierkugel oder Maßstab kalibrieren — die Vollvermessung (mHKA, mLDFA, mMPTA, JLCA, CPAK) führt Punkt für Punkt.</span></div>
-      <div class="schritt"><div class="num">4</div><b>Planen &amp; drucken</b><span>Schablone platzieren und mechanisch ausrichten, Größen vergleichen, Resektionen ablesen — und den OP-Aushang als PDF drucken.</span></div>
-    </div>
-  </section>
-
-  <section class="wrap" id="funktionen">
-    <h2>Funktionen</h2>
-    <p class="sub">Vom kalibrierten Röntgenbild zum fertigen OP-Aushang — ein Workflow, vier Bausteine.</p>
-    <div class="usps">
-      <div class="usp"><div class="dot">⌖</div><b>Vollvermessung &amp; CPAK</b><span>17-Punkte-Workflow: mHKA, mLDFA, mMPTA, JLCA — mit CPAK-Matrix nach MacDessi und Live-Aktualisierung bei der Implantat-Positionierung.</span></div>
-      <div class="usp"><div class="dot">▦</div><b>Schablonen-Planung</b><span>Hüfte und Knie templatieren, mechanisch ausrichten, Resektionen ablesen — eigene Schablonen-Pakete lassen sich lokal importieren.</span></div>
-      <div class="usp"><div class="dot">⎙</div><b>OP-Aushang als PDF</b><span>Seite 1 ist das Poster für den Saal: Bild maximal, Kopfzeile mit CAVE und BLD — drucken, aufhängen, fertig.</span></div>
-      <div class="usp"><div class="dot">⛨</div><b>100 % lokal</b><span>Reine Browser-App ohne Server: DICOM rein, PDF raus — kein Upload, kein Konto, DSGVO-freundlich.</span></div>
-    </div>
-  </section>
-
-  <section class="wrap" id="einblicke">
-    <h2>Einblicke in die Planung</h2>
-    <p class="sub">Authentische Ansichten aus der Anwendung — Knie-Vollvermessung mit
-    CPAK-Klassifikation an einer Ganzbeinaufnahme und Beinlängen-Bilanz an einer
-    Beckenübersicht.</p>
-    <div class="galerie">
-      <figure class="shot">
-        <div class="bar"><i></i><i></i><i></i></div>
-        <span class="slot" style="aspect-ratio: 1952 / 1304">
-          <img src="assets/screenshots/knie-vollvermessung.png" alt="Knie-Vollvermessung mit mHKA, mLDFA, mMPTA und JLCA an einer AP-Ganzbeinaufnahme" />
-        </span>
-        <figcaption>AP-Ganzbeinaufnahme mit 17-Punkt-Vollvermessung — mHKA, mLDFA, mMPTA und
-        JLCA werden automatisch berechnet, die CPAK-Klassifikation aktualisiert sich live.</figcaption>
-      </figure>
-      <figure class="shot hoch">
-        <div class="bar"><i></i><i></i><i></i></div>
-        <span class="slot" style="aspect-ratio: 312 / 830">
-          <img src="assets/screenshots/knie-messpanel.png" alt="Messwerte-Panel mit Knie-Vollvermessung und CPAK-Klassifikation" />
-        </span>
-        <figcaption>Messwerte-Panel: Knie-Vollvermessung und CPAK-Klassifikation mit aHKA und JLO.</figcaption>
-      </figure>
-      <figure class="shot">
-        <div class="bar"><i></i><i></i><i></i></div>
-        <span class="slot" style="aspect-ratio: 1957 / 1307">
-          <img src="assets/screenshots/huefte-beinlaengen.jpg" alt="Beinlängen-Bilanz an einer AP-Beckenübersicht" />
-        </span>
-        <figcaption>AP-Beckenübersicht mit Beinlängen-Bilanz: Trochanter-minor-Abstände beidseits,
-        Beinlängendifferenz prä-OP — die Bilanz führt die geplante Korrektur mit.</figcaption>
-      </figure>
-    </div>
-    <p class="nachweis">Bildnachweis Röntgenaufnahmen: Hellerhoff, Lizenz CC BY-SA
-    (<a href="https://commons.wikimedia.org/wiki/File:Genu_varum_-_Roe_Ganzbein_001.jpg" target="_blank" rel="noopener">Ganzbein</a> ·
-    <a href="https://commons.wikimedia.org/wiki/File:Protrusio_acetabuli_rechts_mehr_als_links_81W_-_CR_ap_-_001.jpg" target="_blank" rel="noopener">Beckenübersicht</a>) —
-    anonymisierte Lehrbilder von Wikimedia Commons, als Demo-DICOM geladen. Keine Patientendaten.</p>
-    <div class="teaser">
-      <span class="pill">folgt</span>
-      <span>Einblicke in die Schablonen-Planung — Pfanne, Schaft, Osteotomie und
-      Implantat-Positionierung mit importiertem Schablonen-Paket — werden hier ergänzt.</span>
+      <div id="hero-fig" style="position:relative">
+        <svg class="ecke" aria-hidden="true" width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="#38bdf8" stroke-width="1.5" style="top:-9px;left:-9px"><path d="M9 0v5M9 13v5M0 9h5M13 9h5"></path></svg>
+        <svg class="ecke" aria-hidden="true" width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="#38bdf8" stroke-width="1.5" style="top:-9px;right:-9px"><path d="M9 0v5M9 13v5M0 9h5M13 9h5"></path></svg>
+        <svg class="ecke" aria-hidden="true" width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="#38bdf8" stroke-width="1.5" style="bottom:-9px;left:-9px"><path d="M9 0v5M9 13v5M0 9h5M13 9h5"></path></svg>
+        <svg class="ecke" aria-hidden="true" width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="#38bdf8" stroke-width="1.5" style="bottom:-9px;right:-9px"><path d="M9 0v5M9 13v5M0 9h5M13 9h5"></path></svg>
+        <button class="shot-btn" data-lightbox="0" aria-label="Screenshot vergrößern: Knie-Vollvermessung" style="padding:10px;box-shadow:0 24px 60px rgba(2,132,199,.12)">
+          <span style="display:flex;align-items:center;gap:5px;padding:2px 4px 8px">
+            <i style="width:9px;height:9px;border-radius:50%;background:#262626"></i><i style="width:9px;height:9px;border-radius:50%;background:#262626"></i><i style="width:9px;height:9px;border-radius:50%;background:#262626"></i>
+            <span style="flex:1"></span>
+            <span style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#737373">Ganzbein a.p. · Demo</span>
+          </span>
+          <span style="position:relative;display:block;border-radius:8px;overflow:hidden;background:#000">
+            <img src="assets/screenshots/knie-vollvermessung.png" alt="CendovaPlan: Knie-Vollvermessung mit CPAK-Klassifikation an einer AP-Ganzbeinaufnahme" loading="eager" style="display:block;width:100%;height:auto" />
+            <svg viewBox="0 0 1952 1304" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%">
+              <line data-draw x1="980" y1="142" x2="886" y2="742" stroke="#38bdf8" stroke-width="5" stroke-linecap="round"></line>
+              <line data-draw data-verz="500" x1="886" y1="742" x2="966" y2="1228" stroke="#38bdf8" stroke-width="5" stroke-linecap="round"></line>
+              <path data-draw data-verz="1000" d="M 903 633 A 110 110 0 0 1 904 850" fill="none" stroke="#38bdf8" stroke-width="5" stroke-linecap="round"></path>
+              <g data-fade data-verz="1350">
+                <circle cx="980" cy="142" r="16" fill="rgba(56,189,248,.15)" stroke="#38bdf8" stroke-width="4"></circle>
+                <circle cx="886" cy="742" r="16" fill="rgba(56,189,248,.15)" stroke="#38bdf8" stroke-width="4"></circle>
+                <circle cx="966" cy="1228" r="16" fill="rgba(56,189,248,.15)" stroke="#38bdf8" stroke-width="4"></circle>
+                <line x1="1000" y1="741" x2="1042" y2="716" stroke="#38bdf8" stroke-width="3"></line>
+                <rect x="1042" y="632" width="392" height="160" rx="14" fill="#0b2536" stroke="#0e4a6b" stroke-width="2.5"></rect>
+                <text x="1074" y="698" font-family="Inter, sans-serif" font-size="48" font-weight="650" fill="#e8f4fb">mHKA 161,0°</text>
+                <text x="1074" y="756" font-family="Inter, sans-serif" font-size="34" fill="#7dd3fc">Varus 19,0° · CPAK I</text>
+              </g>
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
   </section>
 
-  <section class="wrap privat">
-    <h2>Ihre Daten bleiben bei Ihnen.</h2>
-    <div class="karte">
-      <p>CendovaPlan ist ein reines Frontend ohne Backend: DICOM-Dateien werden im Browser
-      geöffnet, vermessen und wieder verworfen — es gibt keinen Upload, keine Cloud, keine
-      Telemetrie und kein Benutzerkonto. Die Anwendung läuft nach der Installation vollständig
-      auf dem eigenen Rechner; für den Betrieb genügt ein WebGL-fähiger Browser.</p>
-      <a href="https://github.com/cendova/cendova-plan/blob/main/docs/klinik-installation.md" target="_blank" rel="noopener">Infos für die Klinik-IT →</a>
-    </div>
-  </section>
-
-  <div class="band">
+  <section id="warum" class="sektion">
     <div class="wrap">
-      <span class="tag">Nicht CE-zertifiziert</span>
-      <p>CendovaPlan ist ein Lern-, Forschungs- und Demonstrationswerkzeug — <strong>kein
-      Medizinprodukt</strong> im Sinne der Verordnung (EU) 2017/745 (MDR) und nicht für die
-      klinische Anwendung bestimmt. Hersteller-Schablonen sind nicht enthalten — eigene Pakete
-      lassen sich lokal importieren („bring your own templates&#8220;). Der Quellcode ist offen unter
-      <a href="https://github.com/cendova/cendova-plan/blob/main/LICENSE" target="_blank" rel="noopener">Apache-2.0</a>.</p>
+      <div class="kicker" data-fade>
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="#38bdf8" stroke-width="1.6" aria-hidden="true"><path d="M9 0v5M9 13v5M0 9h5M13 9h5"></path><circle cx="9" cy="9" r="1.4" fill="#38bdf8" stroke="none"></circle></svg>
+        <span class="txt">01 · Warum</span>
+        <span class="regel" data-rule></span>
+      </div>
+      <h2 class="h2">Warum CendovaPlan?</h2>
+      <p class="sub">Die Software ist frei — die Schablonen gibt es beim Implantat&#8209;Hersteller.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px">
+        <div class="karte karte-hover" data-fade>
+          <div class="icon-dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"></path></svg></div>
+          <h3 style="margin:10px 0 6px;font-size:14px;font-weight:650;color:#e8f4fb">Kostenfrei &amp; Open Source</h3>
+          <p style="font-size:12.5px;line-height:1.55;color:#8f8f8f">Kein Abo, keine Lizenzgebühr, kein Konto — der komplette Quellcode ist offen (Apache&#8209;2.0).</p>
+        </div>
+        <div class="karte karte-hover" data-fade data-verz="90">
+          <div class="icon-dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="12" height="12" rx="2"></rect><path d="M9 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2"></path></svg></div>
+          <h3 style="margin:10px 0 6px;font-size:14px;font-weight:650;color:#e8f4fb">Schablonen direkt vom Hersteller</h3>
+          <p style="font-size:12.5px;line-height:1.55;color:#8f8f8f">Offizielle Röntgen&#8209;Schablonen liefert der Implantat&#8209;Hersteller — einmal importiert, dauerhaft lokal verfügbar.</p>
+        </div>
+        <div class="karte karte-hover" data-fade data-verz="180">
+          <div class="icon-dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4l14 8-14 8z"></path></svg></div>
+          <h3 style="margin:10px 0 6px;font-size:14px;font-weight:650;color:#e8f4fb">Sofort einsatzbereit</h3>
+          <p style="font-size:12.5px;line-height:1.55;color:#8f8f8f">Installieren, DICOM öffnen, planen — ohne Server, ohne Freischaltung. Oder gleich die Demo starten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="funktionen" class="sektion">
+    <div class="wrap">
+      <div class="kicker" data-fade>
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="#38bdf8" stroke-width="1.6" aria-hidden="true"><path d="M9 0v5M9 13v5M0 9h5M13 9h5"></path><circle cx="9" cy="9" r="1.4" fill="#38bdf8" stroke="none"></circle></svg>
+        <span class="txt">02 · Funktionen</span>
+        <span class="regel" data-rule></span>
+      </div>
+      <h2 class="h2">Vom Röntgenbild zum OP&#8209;Aushang</h2>
+      <p class="sub">Ein Workflow, vier Bausteine.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,225px),1fr));gap:12px">
+        <div class="karte karte-hover" data-fade>
+          <div style="display:flex;align-items:center;gap:10px"><span class="icon-dot" style="flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"></circle><path d="M12 1v4M12 19v4M1 12h4M19 12h4"></path><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"></circle></svg></span><h3 style="font-size:14px;font-weight:650;color:#e8f4fb">Vollvermessung &amp; CPAK</h3></div>
+          <p style="margin:10px 0 0;font-size:12.5px;line-height:1.55;color:#8f8f8f">Knie: 17&#8209;Punkte&#8209;Workflow mit Live&#8209;CPAK. Hüfte: Beinlängen&#8209;Bilanz an der Beckenübersicht.</p>
+        </div>
+        <div class="karte karte-hover" data-fade data-verz="80">
+          <div style="display:flex;align-items:center;gap:10px"><span class="icon-dot" style="flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="12" height="12" rx="2"></rect><path d="M9 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2"></path></svg></span><h3 style="font-size:14px;font-weight:650;color:#e8f4fb">Schablonen&#8209;Planung</h3></div>
+          <p style="margin:10px 0 0;font-size:12.5px;line-height:1.55;color:#8f8f8f">Hüfte &amp; Knie templatieren, mechanisch ausrichten, Resektionen ablesen.</p>
+        </div>
+        <div class="karte karte-hover" data-fade data-verz="160">
+          <div style="display:flex;align-items:center;gap:10px"><span class="icon-dot" style="flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6"></path><rect x="4" y="9" width="16" height="8" rx="1.5"></rect><rect x="8" y="14" width="8" height="7"></rect></svg></span><h3 style="font-size:14px;font-weight:650;color:#e8f4fb">OP&#8209;Aushang als PDF</h3></div>
+          <p style="margin:10px 0 0;font-size:12.5px;line-height:1.55;color:#8f8f8f">Seite 1 ist das Poster für den Saal — drucken, aufhängen, fertig.</p>
+        </div>
+        <div class="karte karte-hover" data-fade data-verz="240">
+          <div style="display:flex;align-items:center;gap:10px"><span class="icon-dot" style="flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"></path></svg></span><h3 style="font-size:14px;font-weight:650;color:#e8f4fb">100 % lokal</h3></div>
+          <p style="margin:10px 0 0;font-size:12.5px;line-height:1.55;color:#8f8f8f">DICOM rein, PDF raus — kein Upload, keine Telemetrie, DSGVO&#8209;freundlich.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="einblicke" class="sektion">
+    <div class="wrap">
+      <div class="kicker" data-fade>
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="#38bdf8" stroke-width="1.6" aria-hidden="true"><path d="M9 0v5M9 13v5M0 9h5M13 9h5"></path><circle cx="9" cy="9" r="1.4" fill="#38bdf8" stroke="none"></circle></svg>
+        <span class="txt">03 · Einblicke</span>
+        <span class="regel" data-rule></span>
+      </div>
+      <h2 class="h2">Einblicke in die Planung</h2>
+      <p class="sub">Authentische Ansichten aus der Anwendung — zum Vergrößern klicken.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:14px">
+        <figure data-fade>
+          <button class="shot-btn galerie-btn" data-lightbox="0" aria-label="Bild vergrößern: Knie-Vollvermessung an Ganzbeinaufnahme">
+            <span style="display:flex;align-items:center;gap:5px;padding:2px 4px 7px"><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><span style="flex:1"></span><span style="font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:#737373">Ganzbein a.p.</span></span>
+            <img src="assets/screenshots/knie-vollvermessung.png" alt="Knie-Vollvermessung mit mHKA, mLDFA, mMPTA und JLCA an einer AP-Ganzbeinaufnahme" loading="lazy" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px" />
+          </button>
+          <figcaption style="padding:9px 4px 0;font-size:12.5px;line-height:1.5;color:#737373">17&#8209;Punkt&#8209;Vollvermessung — mHKA, mLDFA, mMPTA und JLCA automatisch berechnet, CPAK live.</figcaption>
+        </figure>
+        <figure data-fade data-verz="90">
+          <button class="shot-btn galerie-btn" data-lightbox="1" aria-label="Bild vergrößern: Messwerte-Panel mit CPAK-Klassifikation">
+            <span style="display:flex;align-items:center;gap:5px;padding:2px 4px 7px"><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><span style="flex:1"></span><span style="font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:#737373">Messwerte · CPAK</span></span>
+            <img src="assets/screenshots/knie-messpanel.png" alt="Messwerte-Panel mit Knie-Vollvermessung und CPAK-Klassifikation" loading="lazy" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 76%;border-radius:8px" />
+          </button>
+          <figcaption style="padding:9px 4px 0;font-size:12.5px;line-height:1.5;color:#737373">Messwerte&#8209;Panel: Vollvermessung und CPAK&#8209;Klassifikation mit aHKA und JLO.</figcaption>
+        </figure>
+        <figure data-fade data-verz="180">
+          <button class="shot-btn galerie-btn" data-lightbox="2" aria-label="Bild vergrößern: Beinlängen-Bilanz an Beckenübersicht">
+            <span style="display:flex;align-items:center;gap:5px;padding:2px 4px 7px"><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><span style="flex:1"></span><span style="font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:#737373">Becken a.p.</span></span>
+            <img src="assets/screenshots/huefte-beinlaengen.jpg" alt="Beinlängen-Bilanz an einer AP-Beckenübersicht" loading="lazy" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px" />
+          </button>
+          <figcaption style="padding:9px 4px 0;font-size:12.5px;line-height:1.5;color:#737373">Beinlängen&#8209;Bilanz: Trochanter&#8209;minor&#8209;Abstände beidseits, Differenz prä&#8209;OP.</figcaption>
+        </figure>
+      </div>
+      <p style="margin:16px 0 0;font-size:11.5px;color:#525252">Bildnachweis Röntgenaufnahmen: Hellerhoff, Lizenz CC BY&#8209;SA (<a href="https://commons.wikimedia.org/wiki/File:Genu_varum_-_Roe_Ganzbein_001.jpg" target="_blank" rel="noopener" style="color:#737373">Ganzbein</a> · <a href="https://commons.wikimedia.org/wiki/File:Protrusio_acetabuli_rechts_mehr_als_links_81W_-_CR_ap_-_001.jpg" target="_blank" rel="noopener" style="color:#737373">Beckenübersicht</a>) — anonymisierte Lehrbilder von Wikimedia Commons, als Demo&#8209;DICOM geladen. Keine Patientendaten.</p>
+    </div>
+  </section>
+
+  <section id="installation" class="sektion">
+    <div class="wrap">
+      <div class="kicker" data-fade>
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="#38bdf8" stroke-width="1.6" aria-hidden="true"><path d="M9 0v5M9 13v5M0 9h5M13 9h5"></path><circle cx="9" cy="9" r="1.4" fill="#38bdf8" stroke="none"></circle></svg>
+        <span class="txt">04 · Installation</span>
+        <span class="regel" data-rule></span>
+      </div>
+      <h2 class="h2">So funktioniert es</h2>
+      <p class="sub" style="margin-bottom:20px">Von null zur fertigen Planung in vier Schritten.</p>
+      <div data-fade style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+        <a class="btn-p" style="padding:12px 20px;font-size:14.5px" href="https://github.com/cendova/cendova-plan/releases/latest/download/CendovaPlan-Installer-Windows.zip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"></path></svg>Installer für Windows</a>
+        <a class="btn-p" style="padding:12px 20px;font-size:14.5px" href="https://github.com/cendova/cendova-plan/releases/latest/download/CendovaPlan-Installer-macOS.zip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"></path></svg>Installer für macOS</a>
+        <a class="btn-s" style="padding:12px 20px;font-size:14.5px" href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener">Code auf GitHub</a>
+      </div>
+      <div data-fade style="margin-bottom:22px">
+        <button id="acc-trigger" aria-expanded="false" aria-controls="acc-panel" style="display:inline-flex;align-items:center;gap:8px;background:transparent;border:none;padding:8px 4px;min-height:44px;cursor:pointer;font-size:12.5px;font-weight:600;color:#38bdf8">
+          <span id="acc-plus" style="display:inline-block;transition:transform .25s ease;font-size:15px;line-height:1">+</span>
+          Details zur Installation (SmartScreen, macOS&#8209;Gatekeeper, Auto&#8209;Update)
+        </button>
+        <div id="acc-panel" hidden style="border:1px solid #232323;background:#121212;border-radius:10px;padding:16px 18px;max-width:820px">
+          <p style="margin:0 0 8px;font-size:13px;line-height:1.65;color:#a3a3a3">ZIP entpacken und den Installer starten — <strong style="color:#d4d4d4">Windows:</strong> Doppelklick auf „Installieren.cmd", den SmartScreen&#8209;Hinweis mit „Trotzdem ausführen" bestätigen. <strong style="color:#d4d4d4">macOS:</strong> Rechtsklick auf „install&#8209;mac.command" → „Öffnen".</p>
+          <p style="margin:0 0 8px;font-size:13px;line-height:1.65;color:#a3a3a3">Der Installer richtet Git und Node.js ein, lädt CendovaPlan und legt eine Desktop&#8209;Verknüpfung an, die beim Start automatisch aktualisiert.</p>
+          <a href="https://github.com/cendova/cendova-plan/blob/main/docs/klinik-installation.md" target="_blank" rel="noopener" style="font-size:13px;font-weight:600;text-decoration:none">Ausführliche Anleitung für die Klinik&#8209;IT →</a>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px">
+        <div class="karte" data-fade>
+          <div class="schritt-num">1</div>
+          <h3 style="margin:10px 0 6px;font-size:14px;font-weight:650;color:#e8f4fb">Installieren</h3>
+          <p style="font-size:12.5px;line-height:1.55;color:#8f8f8f">Installer laden und starten — Node.js und Git richtet er selbst ein.</p>
+        </div>
+        <div class="karte" data-fade data-verz="80">
+          <div class="schritt-num">2</div>
+          <h3 style="margin:10px 0 6px;font-size:14px;font-weight:650;color:#e8f4fb">Schablonen importieren</h3>
+          <p style="font-size:12.5px;line-height:1.55;color:#8f8f8f">Paket vom Implantat&#8209;Hersteller einmalig importieren — es bleibt lokal.</p>
+        </div>
+        <div class="karte" data-fade data-verz="160">
+          <div class="schritt-num">3</div>
+          <h3 style="margin:10px 0 6px;font-size:14px;font-weight:650;color:#e8f4fb">Kalibrieren &amp; vermessen</h3>
+          <p style="font-size:12.5px;line-height:1.55;color:#8f8f8f">DICOM öffnen, über Kugel oder Maßstab kalibrieren — die Vollvermessung führt Punkt für Punkt.</p>
+        </div>
+        <div class="karte" data-fade data-verz="240">
+          <div class="schritt-num">4</div>
+          <h3 style="margin:10px 0 6px;font-size:14px;font-weight:650;color:#e8f4fb">Planen &amp; drucken</h3>
+          <p style="font-size:12.5px;line-height:1.55;color:#8f8f8f">Schablone ausrichten, Größen vergleichen — OP&#8209;Aushang als PDF.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="datenschutz" style="padding-top:clamp(40px,5.5vw,64px)">
+    <div class="wrap">
+      <div data-fade style="background:#0b1c2b;border:1px solid #1f3a52;border-radius:12px;padding:clamp(22px,3.5vw,32px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(22px,3.5vw,36px);align-items:center">
+        <div>
+          <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px">
+            <svg width="13" height="13" viewBox="0 0 18 18" fill="none" stroke="#38bdf8" stroke-width="1.6" aria-hidden="true"><path d="M9 0v5M9 13v5M0 9h5M13 9h5"></path><circle cx="9" cy="9" r="1.4" fill="#38bdf8" stroke="none"></circle></svg>
+            <span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#5e7f99">05 · Datenschutz</span>
+          </div>
+          <h2 style="margin:0 0 8px;font-size:24px;font-weight:700;letter-spacing:-.01em;color:#e8f4fb">Ihre Daten bleiben bei Ihnen.</h2>
+          <p style="margin:0 0 14px;font-size:14px;line-height:1.65;color:#a9c3d6;max-width:52ch">Reines Frontend ohne Backend: DICOM&#8209;Dateien werden im Browser geöffnet, vermessen — und wieder verworfen. Es genügt ein WebGL&#8209;fähiger Browser.</p>
+          <a href="https://github.com/cendova/cendova-plan/blob/main/docs/klinik-installation.md" target="_blank" rel="noopener" style="font-size:13.5px;font-weight:600;text-decoration:none">Infos für die Klinik&#8209;IT →</a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px">
+          <div class="trust-kachel">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V6M8 9l4-4 4 4"></path><path d="M4 20h16"></path><path d="M3 3l18 18" stroke="#5e7f99" stroke-width="1.8"></path></svg>
+            <p>Kein Upload</p>
+          </div>
+          <div class="trust-kachel">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a5 5 0 0 1-.9-9.9A6 6 0 0 1 17.7 9.2 4.5 4.5 0 0 1 17.5 18H7z"></path><path d="M3 3l18 18" stroke="#5e7f99" stroke-width="1.8"></path></svg>
+            <p>Keine Cloud</p>
+          </div>
+          <div class="trust-kachel">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 10a10 10 0 0 1 14 0M8 13.5a6 6 0 0 1 8 0"></path><circle cx="12" cy="17.5" r="1.2" fill="#38bdf8" stroke="none"></circle><path d="M3 3l18 18" stroke="#5e7f99" stroke-width="1.8"></path></svg>
+            <p>Keine Telemetrie</p>
+          </div>
+          <div class="trust-kachel">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M5 20c1.5-3.4 4-5 7-5s5.5 1.6 7 5"></path><path d="M3 3l18 18" stroke="#5e7f99" stroke-width="1.8"></path></svg>
+            <p>Kein Konto</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="entwickler" style="padding-top:clamp(40px,5.5vw,56px)">
+    <div class="wrap">
+      <div data-fade style="border-top:1px solid #1c1c1c;padding-top:clamp(24px,3.5vw,36px);display:flex;flex-wrap:wrap;gap:24px;align-items:center">
+        <div aria-hidden="true" style="width:104px;height:104px;flex:none;border-radius:50%;background:#0b2536;border:1px solid #1f3a52;display:flex;align-items:center;justify-content:center">
+          <span style="font-size:30px;font-weight:700;color:#38bdf8;letter-spacing:.02em">PM</span>
+        </div>
+        <div style="flex:1;min-width:280px">
+          <p style="margin:0 0 6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#737373">Entwickelt von</p>
+          <h2 style="margin:0 0 6px;font-size:17px;font-weight:650;color:#e8f4fb">Priv.&#8209;Doz. Dr. med. Philipp A. Michel</h2>
+          <p style="margin:0 0 12px;font-size:13.5px;line-height:1.6;color:#a3a3a3;max-width:66ch">Facharzt für Orthopädie und Unfallchirurgie, Schwerpunkt Hüft&#8209; und Knieendoprothetik. CendovaPlan ist aus der eigenen OP&#8209;Planung entstanden — als freies Werkzeug für Kolleginnen und Kollegen.</p>
+          <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center">
+            <a href="https://ethianum-klinik-heidelberg.de/aerzte-im-ethianum/priv-doz-dr-med-philipp-a-michel/" target="_blank" rel="noopener" style="font-size:13.5px;font-weight:600;text-decoration:none">Ärzteprofil am ETHIANUM Heidelberg →</a>
+            <a class="dev-link" href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener" style="font-size:13px">Projekt auf GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="margin-top:clamp(40px,5.5vw,56px);border-top:1px solid #1c1c1c;border-bottom:1px solid #1c1c1c;background:#0d0d0d;padding:20px 0">
+    <div class="wrap" style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start">
+      <span style="background:#3a2b00;color:#fbbf24;border:1px solid #6b5300;padding:3px 10px;border-radius:99px;font-weight:600;font-size:12.5px;white-space:nowrap">Nicht CE-zertifiziert</span>
+      <p style="flex:1;min-width:280px;font-size:12.5px;line-height:1.6;color:#a3a3a3;max-width:96ch">CendovaPlan ist ein Lern&#8209;, Forschungs&#8209; und Demonstrationswerkzeug — <strong style="color:#d4d4d4">kein Medizinprodukt</strong> im Sinne der Verordnung (EU) 2017/745 (MDR) und nicht für die klinische Anwendung bestimmt. Hersteller&#8209;Schablonen sind nicht enthalten („bring your own templates"). Quellcode offen unter <a href="https://github.com/cendova/cendova-plan/blob/main/LICENSE" target="_blank" rel="noopener" style="color:#d4d4d4">Apache&#8209;2.0</a>.</p>
     </div>
   </div>
 
-  <footer>
-    <div class="wrap">
-      <span>© 2026 Priv.-Doz. Dr. med. Philipp A. Michel</span>
-      <a href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener">GitHub</a>
-      <a href="impressum.html">Impressum</a>
-      <a href="datenschutz.html">Datenschutz</a>
-      <span class="marke"><span class="marke-c">C</span><span style="color:#8f8f8f">endova</span></span>
+  <footer style="padding:26px 0 40px">
+    <div class="wrap" style="display:flex;gap:20px;flex-wrap:wrap;align-items:center;font-size:12px;color:#666666">
+      <span>© 2026 Priv.&#8209;Doz. Dr. med. Philipp A. Michel</span>
+      <a class="fuss-link" href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener">GitHub</a>
+      <a class="fuss-link" href="impressum.html">Impressum</a>
+      <a class="fuss-link" href="datenschutz.html">Datenschutz</a>
+      <span style="flex:1"></span>
+      <span style="font-weight:700;font-size:14px"><span style="color:#0ea5e9">C</span><span style="color:#8f8f8f">endova</span></span>
     </div>
   </footer>
-</div>
+
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Bildansicht" hidden style="position:fixed;inset:0;z-index:1000;background:rgba(5,5,5,.94)">
+    <div style="display:flex;align-items:center;gap:8px;padding:12px 16px">
+      <span id="lb-label" style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#d4d4d4"></span>
+      <span id="lb-zaehler" style="font-size:11.5px;color:#737373;margin-left:4px;font-variant-numeric:tabular-nums"></span>
+      <span style="flex:1"></span>
+      <button class="lb-btn" id="lb-zoom-aus" aria-label="Verkleinern">−</button>
+      <button class="lb-btn" id="lb-zoom-an" aria-label="Vergrößern">+</button>
+      <button class="lb-btn" id="lb-schliessen" aria-label="Schließen" style="font-size:16px">✕</button>
+    </div>
+    <div id="lb-stage" style="flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;touch-action:none;padding:10px;cursor:zoom-in;min-height:0">
+      <img id="lb-img" alt="" draggable="false" style="max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 30px 90px rgba(0,0,0,.6);user-select:none;transition:transform .18s ease-out" />
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;padding:10px 16px 6px">
+      <button class="lb-btn lb-rund" id="lb-vorher" aria-label="Vorheriges Bild">‹</button>
+      <p id="lb-caption" style="flex:1;font-size:13px;line-height:1.5;color:#a3a3a3;max-width:90ch"></p>
+      <button class="lb-btn lb-rund" id="lb-naechste" aria-label="Nächstes Bild">›</button>
+    </div>
+    <p style="padding:0 16px 12px;font-size:10.5px;color:#525252">Scrollen = Zoom · Ziehen = Verschieben · Doppelklick = 100 % ↔ 240 % · Esc schließt</p>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+    var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------- Scroll-Reveals (Fade, Linien, SVG-Draw, Count-up) ---------- */
+    var pending = new Set();
+    function zeige(el) {
+      pending.delete(el);
+      var verz = parseInt(el.dataset.verz || '0', 10);
+      if (el.hasAttribute('data-zaehl')) {
+        var ziel = parseFloat(el.dataset.zaehl);
+        setTimeout(function () {
+          var t0 = performance.now();
+          (function tick(t) {
+            var p = Math.min(1, (t - t0) / 900);
+            el.textContent = String(Math.round(ziel * (1 - Math.pow(1 - p, 3))));
+            if (p < 1) requestAnimationFrame(tick);
+          })(t0);
+        }, verz);
+        return;
+      }
+      setTimeout(function () {
+        if (el.hasAttribute('data-draw')) { el.style.transition = 'stroke-dashoffset 1.1s cubic-bezier(.4,0,.2,1)'; el.style.strokeDashoffset = '0'; return; }
+        if (el.hasAttribute('data-rule')) { el.style.transition = 'transform .9s cubic-bezier(.4,0,.2,1)'; el.style.transform = 'scaleX(1)'; return; }
+        el.style.transition = 'opacity .65s ease, transform .65s cubic-bezier(.2,.6,.2,1)';
+        el.style.opacity = '1'; el.style.transform = 'none';
+      }, verz);
+    }
+    if (!rm) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { zeige(e.target); io.unobserve(e.target); } });
+      }, { threshold: 0.01, rootMargin: '0px 0px 60px 0px' });
+      document.querySelectorAll('[data-fade],[data-rule],[data-zaehl],[data-draw]').forEach(function (el) {
+        if (el.hasAttribute('data-fade')) { el.style.opacity = '0'; el.style.transform = 'translateY(14px)'; }
+        else if (el.hasAttribute('data-rule')) { el.style.transform = 'scaleX(0)'; }
+        else if (el.hasAttribute('data-draw')) {
+          var L = 600; try { L = el.getTotalLength ? el.getTotalLength() : 600; } catch (err) {}
+          el.style.strokeDasharray = String(L); el.style.strokeDashoffset = String(L);
+        } else if (el.hasAttribute('data-zaehl')) { el.textContent = '0'; }
+        pending.add(el);
+        io.observe(el);
+      });
+      /* Failsafe: nach 6 s alles Ausstehende einblenden — nichts bleibt unsichtbar. */
+      setTimeout(function () { pending.forEach(function (el) { zeige(el); }); pending.clear(); }, 6000);
+    }
+
+    /* ---------- Dezenter Parallax der Hero-Grafik ---------- */
+    var heroFig = document.getElementById('hero-fig');
+    if (!rm && heroFig) {
+      addEventListener('scroll', function () {
+        var r = heroFig.getBoundingClientRect();
+        var off = Math.max(-20, Math.min(20, (innerHeight / 2 - (r.top + r.height / 2)) * 0.045));
+        heroFig.style.transform = 'translateY(' + off.toFixed(1) + 'px)';
+      }, { passive: true });
+    }
+
+    /* ---------- Mobiles Menü ---------- */
+    var burger = document.getElementById('burger');
+    var panel = document.getElementById('menue-panel');
+    var spacer = document.getElementById('burger-spacer');
+    var mq = matchMedia('(max-width:840px)');
+    function mqSync() {
+      spacer.style.display = mq.matches ? 'block' : 'none';
+      if (!mq.matches) schliesseMenue();
+    }
+    function schliesseMenue() { panel.style.display = 'none'; burger.setAttribute('aria-expanded', 'false'); }
+    mq.addEventListener('change', mqSync); mqSync();
+    burger.addEventListener('click', function () {
+      var offen = panel.style.display === 'block';
+      panel.style.display = offen ? 'none' : 'block';
+      burger.setAttribute('aria-expanded', offen ? 'false' : 'true');
+    });
+    panel.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', schliesseMenue); });
+
+    /* ---------- Akkordeon Installation ---------- */
+    var accTrigger = document.getElementById('acc-trigger');
+    var accPanel = document.getElementById('acc-panel');
+    var accPlus = document.getElementById('acc-plus');
+    accTrigger.addEventListener('click', function () {
+      var offen = !accPanel.hidden;
+      accPanel.hidden = offen;
+      accTrigger.setAttribute('aria-expanded', offen ? 'false' : 'true');
+      accPlus.style.transform = offen ? 'rotate(0deg)' : 'rotate(45deg)';
+    });
+
+    /* ---------- Lightbox (Zoom, Pan, Tastatur) ---------- */
+    var bilder = [
+      { src: 'assets/screenshots/knie-vollvermessung.png', label: 'Ganzbein a.p. — Vollvermessung', alt: 'Knie-Vollvermessung mit mHKA, mLDFA, mMPTA und JLCA an einer AP-Ganzbeinaufnahme', caption: 'AP-Ganzbeinaufnahme mit 17-Punkt-Vollvermessung — mHKA, mLDFA, mMPTA und JLCA werden automatisch berechnet, die CPAK-Klassifikation aktualisiert sich live.' },
+      { src: 'assets/screenshots/knie-messpanel.png', label: 'Messwerte-Panel — CPAK', alt: 'Messwerte-Panel mit Knie-Vollvermessung und CPAK-Klassifikation', caption: 'Messwerte-Panel: Knie-Vollvermessung und CPAK-Klassifikation mit aHKA und JLO.' },
+      { src: 'assets/screenshots/huefte-beinlaengen.jpg', label: 'Becken a.p. — Beinlängen', alt: 'Beinlängen-Bilanz an einer AP-Beckenübersicht', caption: 'AP-Beckenübersicht mit Beinlängen-Bilanz: Trochanter-minor-Abstände beidseits, Beinlängendifferenz prä-OP — die Bilanz führt die geplante Korrektur mit.' }
+    ];
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lb-img');
+    var lbStage = document.getElementById('lb-stage');
+    var lbLabel = document.getElementById('lb-label');
+    var lbZaehler = document.getElementById('lb-zaehler');
+    var lbCaption = document.getElementById('lb-caption');
+    var zu = { i: 0, z: 1, x: 0, y: 0 };
+    var drag = null, dragPos = null;
+
+    function wende() {
+      lbImg.style.transform = 'translate(' + zu.x + 'px, ' + zu.y + 'px) scale(' + zu.z + ')';
+      lbStage.style.cursor = zu.z > 1 ? 'grab' : 'zoom-in';
+    }
+    function zeigeBild() {
+      var b = bilder[zu.i];
+      lbImg.src = b.src; lbImg.alt = b.alt;
+      lbLabel.textContent = b.label;
+      lbZaehler.textContent = (zu.i + 1) + ' / ' + bilder.length;
+      lbCaption.textContent = b.caption;
+    }
+    function oeffne(i) {
+      zu = { i: i, z: 1, x: 0, y: 0 };
+      schliesseMenue();
+      zeigeBild(); wende();
+      lb.hidden = false; lb.classList.add('offen');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function () { document.getElementById('lb-schliessen').focus(); }, 40);
+    }
+    function schliesse() {
+      lb.hidden = true; lb.classList.remove('offen');
+      document.body.style.overflow = '';
+    }
+    function blaettere(d) {
+      zu = { i: (zu.i + d + bilder.length) % bilder.length, z: 1, x: 0, y: 0 };
+      zeigeBild(); wende();
+    }
+    function zoome(f) {
+      var z = Math.min(5, Math.max(1, zu.z * f));
+      zu.z = z; if (z === 1) { zu.x = 0; zu.y = 0; }
+      wende();
+    }
+    document.querySelectorAll('[data-lightbox]').forEach(function (btn) {
+      btn.addEventListener('click', function () { oeffne(parseInt(btn.dataset.lightbox, 10)); });
+    });
+    document.getElementById('lb-schliessen').addEventListener('click', schliesse);
+    document.getElementById('lb-vorher').addEventListener('click', function () { blaettere(-1); });
+    document.getElementById('lb-naechste').addEventListener('click', function () { blaettere(1); });
+    document.getElementById('lb-zoom-an').addEventListener('click', function () { zoome(1.35); });
+    document.getElementById('lb-zoom-aus').addEventListener('click', function () { zoome(1 / 1.35); });
+    lbStage.addEventListener('click', function (e) { if (e.target === lbStage) schliesse(); });
+    lbStage.addEventListener('dblclick', function () {
+      zu.z = zu.z > 1 ? 1 : 2.4; zu.x = 0; zu.y = 0; wende();
+    });
+    lbStage.addEventListener('wheel', function (e) {
+      if (lb.hidden) return;
+      e.preventDefault();
+      zoome(e.deltaY < 0 ? 1.18 : 1 / 1.18);
+    }, { passive: false });
+    lbStage.addEventListener('pointerdown', function (e) {
+      if (zu.z <= 1) return;
+      lbStage.setPointerCapture(e.pointerId);
+      drag = { sx: e.clientX, sy: e.clientY, x: zu.x, y: zu.y };
+      lbImg.style.transition = 'none';
+      lbStage.style.cursor = 'grabbing';
+    });
+    lbStage.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      dragPos = { x: drag.x + e.clientX - drag.sx, y: drag.y + e.clientY - drag.sy };
+      lbImg.style.transform = 'translate(' + dragPos.x + 'px, ' + dragPos.y + 'px) scale(' + zu.z + ')';
+    });
+    function dragEnde() {
+      if (!drag) return;
+      if (dragPos) { zu.x = dragPos.x; zu.y = dragPos.y; }
+      drag = null; dragPos = null;
+      /* Explizit wiederherstellen — '' würde die Inline-Transition dauerhaft löschen. */
+      lbImg.style.transition = 'transform .18s ease-out';
+      wende();
+    }
+    lbStage.addEventListener('pointerup', dragEnde);
+    lbStage.addEventListener('pointercancel', dragEnde);
+    addEventListener('keydown', function (e) {
+      if (lb.hidden) return;
+      if (e.key === 'Escape') schliesse();
+      else if (e.key === 'ArrowRight') blaettere(1);
+      else if (e.key === 'ArrowLeft') blaettere(-1);
+    });
+  })();
+  </script>
 </body>
 </html>
