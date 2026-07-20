@@ -294,8 +294,16 @@
       <p class="sub" style="margin-bottom:20px">Von null zur fertigen Planung in vier Schritten.</p>
       <div data-fade style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
         <a class="btn-p" style="padding:12px 20px;font-size:14.5px" href="https://github.com/cendova/cendova-plan/releases/latest/download/CendovaPlan-Installer-Windows.zip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"></path></svg>Installer für Windows</a>
-        <a class="btn-p" style="padding:12px 20px;font-size:14.5px" href="https://github.com/cendova/cendova-plan/releases/latest/download/CendovaPlan-Installer-macOS.zip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"></path></svg>Installer für macOS</a>
+        <a class="btn-s" style="padding:12px 20px;font-size:14.5px" href="https://github.com/cendova/cendova-plan/releases/latest/download/CendovaPlan-Installer-macOS.zip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"></path></svg>macOS&#8209;ZIP (offline/USB)</a>
         <a class="btn-s" style="padding:12px 20px;font-size:14.5px" href="https://github.com/cendova/cendova-plan" target="_blank" rel="noopener">Code auf GitHub</a>
+      </div>
+      <div data-fade style="margin-bottom:22px;max-width:820px">
+        <p style="margin:0 0 6px;font-size:12.5px;font-weight:600;color:#d4d4d4">macOS — Installation über das Terminal (empfohlen):</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <code id="mac-cmd" style="flex:1 1 340px;display:flex;align-items:center;background:#050505;border:1px solid #232323;border-radius:10px;padding:12px 16px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:#7dd3fc;overflow-x:auto;white-space:nowrap">curl -fsSL https://cendova.de/install-mac.sh | bash</code>
+          <button id="mac-copy" type="button" class="btn-s" style="padding:12px 20px;font-size:13px;cursor:pointer">Kopieren</button>
+        </div>
+        <p style="margin:6px 0 0;font-size:12px;line-height:1.6;color:#737373">Terminal öffnen (⌘ + Leertaste → „Terminal"), Zeile einfügen, Enter — installiert bzw. aktualisiert CendovaPlan ohne Gatekeeper&#8209;Blockade.</p>
       </div>
       <div data-fade style="margin-bottom:22px">
         <button id="acc-trigger" aria-expanded="false" aria-controls="acc-panel" style="display:inline-flex;align-items:center;gap:8px;background:transparent;border:none;padding:8px 4px;min-height:44px;cursor:pointer;font-size:12.5px;font-weight:600;color:#38bdf8">
@@ -303,7 +311,8 @@
           Details zur Installation (SmartScreen, macOS&#8209;Gatekeeper, Auto&#8209;Update)
         </button>
         <div id="acc-panel" hidden style="border:1px solid #232323;background:#121212;border-radius:10px;padding:16px 18px;max-width:820px">
-          <p style="margin:0 0 8px;font-size:13px;line-height:1.65;color:#a3a3a3">ZIP entpacken und den Installer starten — <strong style="color:#d4d4d4">Windows:</strong> Doppelklick auf „Installieren.cmd", den SmartScreen&#8209;Hinweis mit „Trotzdem ausführen" bestätigen. <strong style="color:#d4d4d4">macOS:</strong> Rechtsklick auf „install&#8209;mac.command" → „Öffnen".</p>
+          <p style="margin:0 0 8px;font-size:13px;line-height:1.65;color:#a3a3a3"><strong style="color:#d4d4d4">Windows:</strong> ZIP entpacken, Doppelklick auf „Installieren.cmd", den SmartScreen&#8209;Hinweis mit „Trotzdem ausführen" bestätigen.</p>
+          <p style="margin:0 0 8px;font-size:13px;line-height:1.65;color:#a3a3a3"><strong style="color:#d4d4d4">macOS:</strong> empfohlen ist der Terminal&#8209;Einzeiler oben — per curl geladene Dateien tragen kein Quarantäne&#8209;Attribut, daher greift die Gatekeeper&#8209;Blockade unsignierter Downloads nicht. Das macOS&#8209;ZIP (z.&nbsp;B. für den USB&#8209;Stick) startet man ebenfalls über das Terminal: <code style="font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;color:#7dd3fc">bash install-mac.command</code> im entpackten Ordner. Ein Doppelklick zeigt dagegen „… nicht geöffnet", weil der Installer nicht mit einem Apple&#8209;Zertifikat signiert ist.</p>
           <p style="margin:0 0 8px;font-size:13px;line-height:1.65;color:#a3a3a3">Der Installer richtet Git und Node.js ein, lädt CendovaPlan und legt eine Desktop&#8209;Verknüpfung an, die beim Start automatisch aktualisiert.</p>
           <a href="https://github.com/cendova/cendova-plan/blob/main/docs/klinik-installation.md" target="_blank" rel="noopener" style="font-size:13px;font-weight:600;text-decoration:none">Ausführliche Anleitung für die Klinik&#8209;IT →</a>
         </div>
@@ -645,6 +654,31 @@
       if (e.key === 'Escape') schliesse();
       else if (e.key === 'ArrowRight') blaettere(1);
       else if (e.key === 'ArrowLeft') blaettere(-1);
+    });
+  })();
+
+  /* Kopier-Knopf für den macOS-Terminal-Einzeiler. */
+  (function () {
+    var knopf = document.getElementById('mac-copy');
+    var code = document.getElementById('mac-cmd');
+    if (!knopf || !code) return;
+    knopf.addEventListener('click', function () {
+      var text = code.textContent.trim();
+      function fertig() {
+        knopf.textContent = 'Kopiert ✓';
+        setTimeout(function () { knopf.textContent = 'Kopieren'; }, 1800);
+      }
+      function ersatz() {
+        var f = document.createElement('textarea');
+        f.value = text; f.setAttribute('readonly', '');
+        f.style.position = 'fixed'; f.style.opacity = '0';
+        document.body.appendChild(f); f.select();
+        try { document.execCommand('copy'); fertig(); } catch (e) {}
+        document.body.removeChild(f);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(fertig, ersatz);
+      } else { ersatz(); }
     });
   })();
   </script>
