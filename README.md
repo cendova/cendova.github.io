@@ -1,7 +1,7 @@
 # cendova.github.io — Website der Cendova-Suite
 
 Statische Website (https://cendova.de/) — Landing-Page für **CendovaPlan**,
-das browser-basierte Planungstool für Hüft- und Knie-Endoprothetik.
+das browser-basierte Planungstool für Hüft-, Knie- und Schulter-Endoprothetik.
 
 - Kein Build-Schritt: reines HTML/CSS, Fonts und Bilder werden lokal
   ausgeliefert (keine externen Dienste, keine Cookies, kein Tracking).
