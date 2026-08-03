@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cendova — Digital surgical planning for hip and knee, fully local</title>
-  <meta name="description" content="CendovaPlan measures full-leg and pelvis radiographs, classifies according to CPAK and plans hip and knee arthroplasty — right in the browser, no cloud, no account. Open source (Apache-2.0), not a medical device." />
-  <meta property="og:title" content="Cendova — Digital surgical planning for hip and knee" />
+  <title>Cendova — Digital surgical planning for hip, knee and shoulder, fully local</title>
+  <meta name="description" content="CendovaPlan measures full-leg, pelvis and shoulder radiographs, classifies according to CPAK and plans hip, knee and shoulder arthroplasty — right in the browser, no cloud, no account. Open source (Apache-2.0), not a medical device." />
+  <meta property="og:title" content="Cendova — Digital surgical planning for hip, knee and shoulder" />
   <meta property="og:description" content="Measure, classify by CPAK, template, print — right in the browser, no cloud and no account. Open source, no subscription, no account." />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="en_GB" />
@@ -129,7 +129,7 @@
           <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="#38bdf8" stroke-width="1.6" aria-hidden="true"><path d="M9 0v5M9 13v5M0 9h5M13 9h5"></path><circle cx="9" cy="9" r="1.4" fill="#38bdf8" stroke="none"></circle></svg>
           <span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#737373">CendovaPlan — planning instrument for arthroplasty</span>
         </div>
-        <h1 data-fade data-verz="60" style="margin:0 0 14px;font-size:clamp(30px,4.2vw,42px);line-height:1.1;font-weight:750;letter-spacing:-.015em;text-wrap:balance;color:#e8f4fb">Digital surgical planning for hip and knee — <em style="font-style:normal;color:#38bdf8">fully local.</em></h1>
+        <h1 data-fade data-verz="60" style="margin:0 0 14px;font-size:clamp(30px,4.2vw,42px);line-height:1.1;font-weight:750;letter-spacing:-.015em;text-wrap:balance;color:#e8f4fb">Digital surgical planning for hip, knee and shoulder — <em style="font-style:normal;color:#38bdf8">fully local.</em></h1>
         <p data-fade data-verz="140" style="margin:0 0 22px;font-size:16px;line-height:1.6;color:#a3a3a3;max-width:44ch;text-wrap:pretty">Measure, classify by CPAK, template and print — right in the browser, without cloud and without an account.</p>
         <div data-fade data-verz="220" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
           <a class="btn-p js-demo" href="/cendova-plan/">Try the browser demo</a>
@@ -235,11 +235,11 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,225px),1fr));gap:12px">
         <div class="karte karte-hover" data-fade>
           <div style="display:flex;align-items:center;gap:10px"><span class="icon-dot" style="flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"></circle><path d="M12 1v4M12 19v4M1 12h4M19 12h4"></path><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"></circle></svg></span><h3 style="font-size:14px;font-weight:650;color:#e8f4fb">Full measurement &amp; CPAK</h3></div>
-          <p style="margin:10px 0 0;font-size:12.5px;line-height:1.55;color:#8f8f8f">Knee: 17-point workflow with live CPAK. Hip: leg-length balance on the AP pelvis view.</p>
+          <p style="margin:10px 0 0;font-size:12.5px;line-height:1.55;color:#8f8f8f">Knee: 17-point workflow with live CPAK. Hip: leg-length balance. Shoulder: CSA, acromion index, DTI and more.</p>
         </div>
         <div class="karte karte-hover" data-fade data-verz="80">
           <div style="display:flex;align-items:center;gap:10px"><span class="icon-dot" style="flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="12" height="12" rx="2"></rect><path d="M9 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2"></path></svg></span><h3 style="font-size:14px;font-weight:650;color:#e8f4fb">Template planning</h3></div>
-          <p style="margin:10px 0 0;font-size:12.5px;line-height:1.55;color:#8f8f8f">Template hip &amp; knee, align mechanically, read off resections.</p>
+          <p style="margin:10px 0 0;font-size:12.5px;line-height:1.55;color:#8f8f8f">Template hip, knee and shoulder, align, read off resections — shoulder anatomic and reverse.</p>
         </div>
         <div class="karte karte-hover" data-fade data-verz="160">
           <div style="display:flex;align-items:center;gap:10px"><span class="icon-dot" style="flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6"></path><rect x="4" y="9" width="16" height="8" rx="1.5"></rect><rect x="8" y="14" width="8" height="7"></rect></svg></span><h3 style="font-size:14px;font-weight:650;color:#e8f4fb">Theatre poster as PDF</h3></div>
@@ -284,8 +284,15 @@
           </button>
           <figcaption style="padding:9px 4px 0;font-size:12.5px;line-height:1.5;color:#737373">Leg-length balance: lesser-trochanter distances on both sides, pre-op difference.</figcaption>
         </figure>
+        <figure data-fade data-verz="270">
+          <button class="shot-btn galerie-btn" data-lightbox="3" aria-label="Enlarge image: CSA measurement on a shoulder radiograph">
+            <span style="display:flex;align-items:center;gap:5px;padding:2px 4px 7px"><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><span style="flex:1"></span><span style="font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:#737373">Shoulder AP</span></span>
+            <img src="../assets/screenshots/schulter-csa.jpg" alt="CSA measurement (critical shoulder angle) on an AP shoulder radiograph with assessment within the normal range" loading="lazy" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px" />
+          </button>
+          <figcaption style="padding:9px 4px 0;font-size:12.5px;line-height:1.5;color:#737373">Shoulder: CSA with assessment — alongside acromion index, DTI and templating.</figcaption>
+        </figure>
       </div>
-      <p style="margin:16px 0 0;font-size:11.5px;color:#525252">Radiograph credits: Hellerhoff, licensed CC BY&#8209;SA (<a href="https://commons.wikimedia.org/wiki/File:Genu_varum_-_Roe_Ganzbein_001.jpg" target="_blank" rel="noopener" style="color:#737373">full leg</a> · <a href="https://commons.wikimedia.org/wiki/File:Protrusio_acetabuli_rechts_mehr_als_links_81W_-_CR_ap_-_001.jpg" target="_blank" rel="noopener" style="color:#737373">AP pelvis</a>) — anonymised teaching images from Wikimedia Commons, loaded as demo DICOMs. No patient data.</p>
+      <p style="margin:16px 0 0;font-size:11.5px;color:#525252">Radiograph credits: Hellerhoff, licensed CC BY&#8209;SA (<a href="https://commons.wikimedia.org/wiki/File:Genu_varum_-_Roe_Ganzbein_001.jpg" target="_blank" rel="noopener" style="color:#737373">full leg</a> · <a href="https://commons.wikimedia.org/wiki/File:Protrusio_acetabuli_rechts_mehr_als_links_81W_-_CR_ap_-_001.jpg" target="_blank" rel="noopener" style="color:#737373">AP pelvis</a>) — anonymised teaching images from Wikimedia Commons, loaded as demo DICOMs. Shoulder radiograph (Grashey): public domain (CC0). No patient data.</p>
     </div>
   </section>
 
@@ -389,7 +396,7 @@
         <div style="flex:1;min-width:280px">
           <p style="margin:0 0 6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#737373">Developed by</p>
           <h2 style="margin:0 0 6px;font-size:17px;font-weight:650;color:#e8f4fb">Priv.&#8209;Doz. Dr. med. Philipp A. Michel</h2>
-          <p style="margin:0 0 12px;font-size:13.5px;line-height:1.6;color:#a3a3a3;max-width:66ch">Consultant in orthopaedics and trauma surgery, focusing on hip and knee arthroplasty. CendovaPlan grew out of his own surgical planning — as a free tool for colleagues.</p>
+          <p style="margin:0 0 12px;font-size:13.5px;line-height:1.6;color:#a3a3a3;max-width:66ch">Consultant in orthopaedics and trauma surgery, focusing on arthroplasty. CendovaPlan grew out of his own surgical planning — as a free tool for colleagues.</p>
           <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center">
             <a href="https://ethianum-klinik-heidelberg.de/aerzte-im-ethianum/priv-doz-dr-med-philipp-a-michel/" target="_blank" rel="noopener" style="font-size:13.5px;font-weight:600;text-decoration:none">Physician profile at ETHIANUM Heidelberg →</a>
             <a class="dev-link" href="mailto:info@cendova.de" style="font-size:13px">Contact: info@cendova.de</a>
@@ -435,6 +442,10 @@
       <a class="demo-opt" href="/cendova-plan/?beispiel=huefte">
         <b>Sample image hip — AP pelvis</b>
         <span>Start planning right away: leg lengths, angles and osteotomy on the loaded sample image.</span>
+      </a>
+      <a class="demo-opt" href="/cendova-plan/?beispiel=schulter">
+        <b>Sample image shoulder — AP (Grashey)</b>
+        <span>Start planning right away: CSA, acromion index, DTI and templating on the loaded sample image.</span>
       </a>
       <a class="demo-opt" href="/cendova-plan/">
         <b>Load your own DICOM</b>
@@ -575,7 +586,8 @@
     var bilder = [
       { src: '../assets/screenshots/knie-vollvermessung.png', label: 'Full leg AP — full measurement', alt: 'Full knee measurement with mHKA, mLDFA, mMPTA and JLCA on an AP full-leg radiograph', caption: 'AP full-leg radiograph with 17-point full measurement — mHKA, mLDFA, mMPTA and JLCA are calculated automatically, the CPAK classification updates live.' },
       { src: '../assets/screenshots/knie-messpanel.png', label: 'Measurements panel — CPAK', alt: 'Measurements panel with full knee measurement and CPAK classification', caption: 'Measurements panel: full knee measurement and CPAK classification with aHKA and JLO.' },
-      { src: '../assets/screenshots/huefte-beinlaengen.jpg', label: 'Pelvis AP — leg lengths', alt: 'Leg-length balance on an AP pelvis view', caption: 'AP pelvis view with leg-length balance: lesser-trochanter distances on both sides, pre-op leg-length difference — the balance carries the planned correction along.' }
+      { src: '../assets/screenshots/huefte-beinlaengen.jpg', label: 'Pelvis AP — leg lengths', alt: 'Leg-length balance on an AP pelvis view', caption: 'AP pelvis view with leg-length balance: lesser-trochanter distances on both sides, pre-op leg-length difference — the balance carries the planned correction along.' },
+      { src: '../assets/screenshots/schulter-csa.jpg', label: 'Shoulder AP — CSA', alt: 'CSA measurement (critical shoulder angle) on an AP shoulder radiograph with assessment within the normal range', caption: 'AP shoulder radiograph with CSA (critical shoulder angle) and assessment. The shoulder module also covers acromion index, glenoid inclination, neck-shaft angle, AHD, DTI as well as DSA/LSA for the reverse prosthesis — and templating for both prosthesis types.' }
     ];
     var lb = document.getElementById('lightbox');
     var lbImg = document.getElementById('lb-img');
