@@ -284,8 +284,15 @@
           </button>
           <figcaption style="padding:9px 4px 0;font-size:12.5px;line-height:1.5;color:#737373">Beinlängen&#8209;Bilanz: Trochanter&#8209;minor&#8209;Abstände beidseits, Differenz prä&#8209;OP.</figcaption>
         </figure>
+        <figure data-fade data-verz="270">
+          <button class="shot-btn galerie-btn" data-lightbox="3" aria-label="Bild vergrößern: CSA-Messung an einer Schulteraufnahme">
+            <span style="display:flex;align-items:center;gap:5px;padding:2px 4px 7px"><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><i style="width:8px;height:8px;border-radius:50%;background:#262626"></i><span style="flex:1"></span><span style="font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:#737373">Schulter a.p.</span></span>
+            <img src="assets/screenshots/schulter-csa.jpg" alt="CSA-Messung (kritischer Schulterwinkel) an einer AP-Schulteraufnahme mit Beurteilung im Normbereich" loading="lazy" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px" />
+          </button>
+          <figcaption style="padding:9px 4px 0;font-size:12.5px;line-height:1.5;color:#737373">Schulter: CSA mit Einordnung — daneben Akromion&#8209;Index, DTI und Templating.</figcaption>
+        </figure>
       </div>
-      <p style="margin:16px 0 0;font-size:11.5px;color:#525252">Bildnachweis Röntgenaufnahmen: Hellerhoff, Lizenz CC BY&#8209;SA (<a href="https://commons.wikimedia.org/wiki/File:Genu_varum_-_Roe_Ganzbein_001.jpg" target="_blank" rel="noopener" style="color:#737373">Ganzbein</a> · <a href="https://commons.wikimedia.org/wiki/File:Protrusio_acetabuli_rechts_mehr_als_links_81W_-_CR_ap_-_001.jpg" target="_blank" rel="noopener" style="color:#737373">Beckenübersicht</a>) — anonymisierte Lehrbilder von Wikimedia Commons, als Demo&#8209;DICOM geladen. Keine Patientendaten.</p>
+      <p style="margin:16px 0 0;font-size:11.5px;color:#525252">Bildnachweis Röntgenaufnahmen: Hellerhoff, Lizenz CC BY&#8209;SA (<a href="https://commons.wikimedia.org/wiki/File:Genu_varum_-_Roe_Ganzbein_001.jpg" target="_blank" rel="noopener" style="color:#737373">Ganzbein</a> · <a href="https://commons.wikimedia.org/wiki/File:Protrusio_acetabuli_rechts_mehr_als_links_81W_-_CR_ap_-_001.jpg" target="_blank" rel="noopener" style="color:#737373">Beckenübersicht</a>) — anonymisierte Lehrbilder von Wikimedia Commons, als Demo&#8209;DICOM geladen. Schulteraufnahme (Grashey): gemeinfrei (CC0). Keine Patientendaten.</p>
     </div>
   </section>
 
@@ -579,7 +586,8 @@
     var bilder = [
       { src: 'assets/screenshots/knie-vollvermessung.png', label: 'Ganzbein a.p. — Vollvermessung', alt: 'Knie-Vollvermessung mit mHKA, mLDFA, mMPTA und JLCA an einer AP-Ganzbeinaufnahme', caption: 'AP-Ganzbeinaufnahme mit 17-Punkt-Vollvermessung — mHKA, mLDFA, mMPTA und JLCA werden automatisch berechnet, die CPAK-Klassifikation aktualisiert sich live.' },
       { src: 'assets/screenshots/knie-messpanel.png', label: 'Messwerte-Panel — CPAK', alt: 'Messwerte-Panel mit Knie-Vollvermessung und CPAK-Klassifikation', caption: 'Messwerte-Panel: Knie-Vollvermessung und CPAK-Klassifikation mit aHKA und JLO.' },
-      { src: 'assets/screenshots/huefte-beinlaengen.jpg', label: 'Becken a.p. — Beinlängen', alt: 'Beinlängen-Bilanz an einer AP-Beckenübersicht', caption: 'AP-Beckenübersicht mit Beinlängen-Bilanz: Trochanter-minor-Abstände beidseits, Beinlängendifferenz prä-OP — die Bilanz führt die geplante Korrektur mit.' }
+      { src: 'assets/screenshots/huefte-beinlaengen.jpg', label: 'Becken a.p. — Beinlängen', alt: 'Beinlängen-Bilanz an einer AP-Beckenübersicht', caption: 'AP-Beckenübersicht mit Beinlängen-Bilanz: Trochanter-minor-Abstände beidseits, Beinlängendifferenz prä-OP — die Bilanz führt die geplante Korrektur mit.' },
+      { src: 'assets/screenshots/schulter-csa.jpg', label: 'Schulter a.p. — CSA', alt: 'CSA-Messung (kritischer Schulterwinkel) an einer AP-Schulteraufnahme mit Beurteilung im Normbereich', caption: 'AP-Schulteraufnahme mit CSA (kritischer Schulterwinkel) und Einordnung. Das Schultermodul kennt außerdem Akromion-Index, Glenoid-Inklination, Hals-Schaft-Winkel, AHD, DTI sowie DSA/LSA für die inverse Prothese — und Templating für beide Prothesentypen.' }
     ];
     var lb = document.getElementById('lightbox');
     var lbImg = document.getElementById('lb-img');
