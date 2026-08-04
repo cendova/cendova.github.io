@@ -14,7 +14,7 @@
 #   https://github.com/cendova/cendova-plan/blob/main/installer/install-mac.command
 set -u
 
-URL="https://raw.githubusercontent.com/cendova/cendova-plan/main/installer/install-mac.command"
+URL="https://raw.githubusercontent.com/cendova/cendova-plan/stable/installer/install-mac.command"
 
 if [ "$(uname -s)" != "Darwin" ]; then
   echo 'Dieses Skript ist fuer macOS gedacht.' >&2
